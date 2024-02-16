@@ -1,0 +1,14 @@
+{
+    "name": "Book-em",
+    "image": "golang:latest",
+    "service": "postgres",
+    "workspaceFolder": "/book-em",
+    "extensions": ["golang.go", "ms-azuretools.vscode-docker"],
+    "settings": {
+      "terminal.integrated.shell.linux": "/bin/bash"
+    },
+    "mounts": [
+      "source=/Users/jakobfaarbaekgregersen/book-em,target=/book-em,type=bind,consistency=cached"
+    ]
+  }
+  
