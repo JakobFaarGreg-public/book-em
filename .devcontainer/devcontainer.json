@@ -7,10 +7,6 @@
 
   // Features to add to the dev container. More info: https://containers.dev/features.
   "features": {
-    "ghcr.io/devcontainers/features/go:1": {
-      "installDirectlyFromGitHubRelease": true,
-      "version": "latest"
-    },
    "ghcr.io/devcontainers/features/github-cli:1": {}
   },
 
@@ -29,7 +25,7 @@
   },
 
   // Use 'forwardPorts' to make a list of ports inside the container available locally.
-  "forwardPorts": [6006],
+  "forwardPorts": [6006, 3333],
 
   // Use 'postCreateCommand' to run commands after the container is created.
   "postCreateCommand": ".devcontainer/postCreateCommand.sh",
