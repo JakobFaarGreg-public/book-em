@@ -18,8 +18,13 @@
   "customizations": {
     // Configure properties specific to VS Code.
     "vscode": {
-      "settings": {},
-      "extensions": ["golang.go", "ms-azuretools.vscode-docker"]
+      "settings": {
+        "editor.formatOnSave": true,
+        "[markdown]": {
+          "editor.defaultFormatter": "esbenp.prettier-vscode"
+          }
+      },
+      "extensions": ["golang.go", "ms-azuretools.vscode-docker", "esbenp.prettier-vscode"]
     }
   },
 
