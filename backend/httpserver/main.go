@@ -30,9 +30,10 @@ func getBook(w http.ResponseWriter, r *http.Request) {
 }
 
 func main() {
-	http.HandleFunc("/v1", getRoot)
-	http.HandleFunc("/v1/book", getBook)
-	err := http.ListenAndServe(IPAddress+Port, nil)
+	mux := http.NewServeMux()
+	mux.HandleFunc("/v1", getRoot)
+	mux.HandleFunc("/v1/book", getBook)
+	err := http.ListenAndServe(IPAddress+Port, mux)
 	if errors.Is(err, http.ErrServerClosed) {
 		fmt.Printf("server closed\n")
 	} else if err != nil {
