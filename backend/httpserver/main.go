@@ -1,9 +1,11 @@
 package main
 
 import (
+	"context"
 	"errors"
 	"fmt"
 	"io"
+	"net"
 	"net/http"
 	"os"
 )
@@ -13,27 +15,47 @@ var (
 	Port      = ":3333"
 )
 
-func getRoot(w http.ResponseWriter, r *http.Request) {
-	fmt.Printf("got /v1 request\n")
-	_, err := io.WriteString(w, "This is /v1 root!\n")
-	if err != nil {
-		fmt.Printf("Error writing to response writer")
-	}
-}
+type key string
+
+const keyServerAddr key = "serverAddr"
 
 func getBook(w http.ResponseWriter, r *http.Request) {
-	fmt.Printf("got /v1/book request\n")
-	_, err := io.WriteString(w, "This is /v1/book!\n")
-	if err != nil {
-		fmt.Printf("Error writing to response writer")
+	ctx := r.Context()
+	fmt.Printf("%s: Hit /v1/book\n", ctx.Value(keyServerAddr))
+
+	hasBook := r.URL.Query().Has("book")
+	if hasBook {
+		book := r.URL.Query().Get("book")
+
+		fmt.Printf("/v1/book/%s\n", book)
+		_, err := io.WriteString(w, fmt.Sprintf("/v1/book/%s\n", book))
+		if err != nil {
+			fmt.Printf("Error writing to response writer")
+		}
+	} else {
+		fmt.Printf("/v1/book\n")
+		_, err := io.WriteString(w, "/v1/book takes a book as a query argument\n")
+		if err != nil {
+			fmt.Printf("Error writing to response writer")
+		}
 	}
 }
 
 func main() {
 	mux := http.NewServeMux()
-	mux.HandleFunc("/v1", getRoot)
 	mux.HandleFunc("/v1/book", getBook)
-	err := http.ListenAndServe(IPAddress+Port, mux)
+
+	ctx, cancelCtx := context.WithCancel(context.Background())
+	server := &http.Server{
+		Addr:    Port,
+		Handler: mux,
+		BaseContext: func(l net.Listener) context.Context {
+			ctx = context.WithValue(ctx, keyServerAddr, l.Addr().String())
+			return ctx
+		},
+	}
+
+	err := server.ListenAndServe()
 	if errors.Is(err, http.ErrServerClosed) {
 		fmt.Printf("server closed\n")
 	} else if err != nil {
@@ -41,4 +63,5 @@ func main() {
 		ExitFailedStatusCode := 1
 		os.Exit(ExitFailedStatusCode)
 	}
+	cancelCtx()
 }
