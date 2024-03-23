@@ -1,0 +1,13 @@
+linters:
+  enable:
+    - gocritic
+    - gofmt
+    - gofumpt
+    - gomnd
+    - govet
+    - lll
+    - misspell
+    - nlreturn
+    - stylecheck
+    - thelper
+    - whitespace
