@@ -1,4 +1,4 @@
-            - name: Run golangci-lint
+- name: Run golangci-lint
   # You may pin to the exact commit or the version.
   # uses: golangci/golangci-lint-action@3cfe3a4abbb849e10058ce4af15d205b6da42804
   uses: golangci/golangci-lint-action@v4.0.0
