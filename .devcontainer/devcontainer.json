@@ -8,7 +8,8 @@
   // Features to add to the dev container. More info: https://containers.dev/features.
   "features": {
    "ghcr.io/devcontainers/features/github-cli:1": {},
-   "ghcr.io/devcontainers-contrib/features/pre-commit:2": {}
+   "ghcr.io/devcontainers-contrib/features/pre-commit:2": {},
+   "ghcr.io/devcontainers/features/docker-in-docker:2": {}
   },
 
   // Configure tool-specific properties.
@@ -26,7 +27,7 @@
   },
 
   // Use 'forwardPorts' to make a list of ports inside the container available locally.
-  "forwardPorts": [6006, 3333],
+  "forwardPorts": [6006, 3333, 5432, 5051],
 
   // Use 'postCreateCommand' to run commands after the container is created.
   "postCreateCommand": ".devcontainer/postCreateCommand.sh",
