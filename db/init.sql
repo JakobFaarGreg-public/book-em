@@ -1,3 +1,5 @@
+\c default_database;
+
 CREATE TABLE author (
     id int NOT NULL PRIMARY KEY,
     first_name varchar(255) NOT NULL,

@@ -1,5 +1,5 @@
 services:
-  database:
+  database-container:
     image: postgres:latest
     ports:
     - 5432:5432
@@ -9,3 +9,9 @@ services:
     volumes:
       - ./db-data/:/var/lib/postgresql/data/
       - ./init.sql:/docker-entrypoint-initdb.d/init.sql
+  pgadmin-container:
+    image: dpage/pgadmin4
+    ports:
+    - 5051:80
+    env_file:
+      - .env
