@@ -21,20 +21,19 @@ const keyServerAddr key = "serverAddr"
 
 func getBook(w http.ResponseWriter, r *http.Request) {
 	ctx := r.Context()
-	fmt.Printf("%s: Hit /v1/book\n", ctx.Value(keyServerAddr))
+	fmt.Printf("%s: /v1/book\n", ctx.Value(keyServerAddr))
 
 	hasBook := r.URL.Query().Has("book")
 	if hasBook {
-		book := r.URL.Query().Get("book")
-
-		fmt.Printf("/v1/book/%s\n", book)
-		_, err := io.WriteString(w, fmt.Sprintf("/v1/book/%s\n", book))
+		bookID := r.URL.Query().Get("book")
+		fmt.Printf("/v1/books/%s\n", bookID)
+		_, err := io.WriteString(w, fmt.Sprintf("/v1/books/%s\n", bookID))
 		if err != nil {
 			fmt.Printf("Error writing to response writer")
 		}
 	} else {
-		fmt.Printf("/v1/book\n")
-		_, err := io.WriteString(w, "/v1/book takes a book as a query argument\n")
+		fmt.Printf("/v1/books\n")
+		_, err := io.WriteString(w, "/v1/books takes a book as a query argument\n")
 		if err != nil {
 			fmt.Printf("Error writing to response writer")
 		}
@@ -43,7 +42,7 @@ func getBook(w http.ResponseWriter, r *http.Request) {
 
 func main() {
 	mux := http.NewServeMux()
-	mux.HandleFunc("/v1/book", getBook)
+	mux.HandleFunc("/v1/books", getBook)
 
 	ctx, cancelCtx := context.WithCancel(context.Background())
 	server := &http.Server{
