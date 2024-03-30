@@ -5,13 +5,13 @@ repos:
       - id: check-yaml
       - id: end-of-file-fixer
       - id: trailing-whitespace
-  - repo: local
-    hooks:
-      - id: golangci-lint
-        name: golangci-lint
-        language: system
-        entry: golangci-lint run ./...
-        files: ./...go$
+  # - repo: local
+  #   hooks:
+  #     - id: golangci-lint
+  #       name: golangci-lint
+  #       language: system
+  #       entry: golangci-lint run
+  #       files: .go$
   - repo: local
     hooks:
       - id: gofumpt

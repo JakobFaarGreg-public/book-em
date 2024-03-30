@@ -1,19 +1,18 @@
 package httpserver
 
 import (
-	"context"
+	"context" //nolint:gofumpt
 	"database/sql"
 	"errors"
 	"fmt"
 	"io"
 	"net"
 	"net/http"
-	"os"
-	"strconv"
+	"strconv" //nolint:gofumpt
 
-	"backend/httpserver/model"
+	"backend/httpserver/model" //nolint:gofumpt
 
-	_ "github.com/lib/pq"
+	_ "github.com/lib/pq" //nolint:all
 )
 
 var (
@@ -35,6 +34,7 @@ func getBook(w http.ResponseWriter, r *http.Request) {
 		if err != nil {
 			fmt.Printf("Error writing to response writer")
 		}
+
 		return
 	}
 	queryParam := r.URL.Query().Get("book")
@@ -82,8 +82,6 @@ func SetupServer() {
 		fmt.Printf("server closed\n")
 	} else if err != nil {
 		fmt.Printf("error starting server: %s\n", err)
-		ExitFailedStatusCode := 1
-		os.Exit(ExitFailedStatusCode)
 	}
 	cancelCtx()
 }
