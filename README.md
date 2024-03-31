@@ -41,3 +41,11 @@ This is the repository containing the Library Management System created by me.
 
 - Issue Tracking
   - [Github Project](https://github.com/orgs/JakobFaarGreg-public/projects/1/views/1)
+
+## Running the Application
+
+Run the server from `./backend` with `go run main.go` _remember to insert connection string_
+
+Run the database from `./db` with `docker compose up`
+
+Run the curl script from `./frontend/curl` with `bash get_book.sh <id_of_book>` _might need to `chmod +x get_book.sh`_
