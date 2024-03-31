@@ -15,11 +15,6 @@ import (
 	_ "github.com/lib/pq" //nolint:all
 )
 
-var (
-	IPAddress = "127.0.0.1"
-	Port      = ":3333"
-)
-
 type key string
 
 const keyServerAddr key = "serverAddr"
@@ -54,13 +49,13 @@ func getBook(w http.ResponseWriter, r *http.Request) {
 
 var bookDAO *model.BookDAO
 
-func SetupServer() {
+func SetupServer(IPAdress string, port string) {
 	mux := http.NewServeMux()
 	mux.HandleFunc("/v1/books", getBook)
 
 	ctx, cancelCtx := context.WithCancel(context.Background())
 	server := &http.Server{
-		Addr:    Port,
+		Addr:    IPAdress + port,
 		Handler: mux,
 		BaseContext: func(l net.Listener) context.Context {
 			ctx = context.WithValue(ctx, keyServerAddr, l.Addr().String())
