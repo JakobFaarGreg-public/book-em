@@ -66,7 +66,7 @@ func SetupServer(IPAdress string, port string) {
 	connStr := "" // Get from env file
 	db, err := sql.Open("postgres", connStr)
 	if err != nil {
-		fmt.Printf("Error conecting to postgres database: %s", err)
+		fmt.Printf("Error connecting to postgres database: %s", err)
 	}
 	defer db.Close()
 
