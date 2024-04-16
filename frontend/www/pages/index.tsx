@@ -1,9 +1,13 @@
-import React from "react";
+import React, { useEffect } from "react";
 import Head from "next/head";
 import styles from "../styles/Home.module.css";
 import SearchBar from "../components/SearchBar";
 
 export default function Home() {
+  useEffect(() => {
+    console.log("Jakob");
+  }, []);
+
   return (
     <div className={styles.container}>
       <Head>
